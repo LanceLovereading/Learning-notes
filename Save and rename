@@ -1,0 +1,21 @@
+import os
+
+
+def save_file(name, document, long=3):
+    if "?" in name:
+        name.replace("?", "")
+    if long < 2:
+        long = 2
+    init_tail = '_' + "0" * long
+    if name.strip() == "":
+        name = '0' + init_tail
+    if len(name) < 4:
+        name = name + init_tail
+    if os.path.isfile(name):
+        if name[-long - 1] == "_":
+            name = name[:-long] + str(int(name[-long:]) + 1)
+        else:
+            name = name + init_tail
+
+    with open(name, 'w') as f:
+        f.write(document)
